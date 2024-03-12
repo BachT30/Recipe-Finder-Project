@@ -1,0 +1,84 @@
+<%- include("partials/header.ejs") %>
+  <h1 class="text-center mt-5">Recipe Finder</h1>
+    <form action="/search" method="post">
+        <div class="user-input">
+          <input type="text" class="form-control" name="searchBar" placeholder="Search">
+        </div>
+        <select class="form-select" aria-label="Default select example" name="category">
+          <option value="" selected>Category</option>
+          <option value="appetizer">appetizer</option>
+          <option value="main course">main course</option>
+          <option value="side dish">side dish</option>
+          <option value="dessert">dessert</option>
+          <option value="salad">salad</option>
+          <option value="bread">bread</option>
+          <option value="breakfast">breakfast</option>
+          <option value="soup">soup</option>
+          <option value="beverage">beverage</option>
+          <option value="sauce">sauce</option>
+          <option value="marinade">marinade</option>
+          <option value="fingerfood">fingerfood</option>
+          <option value="snack">snack</option>
+          <option value="drink">drink</option>
+        </select>
+        <select class="form-select" aria-label="Default select example" name="cuisines">
+          <option value="" selected>Cuisines</option>
+          <option value="African">African</option>
+          <option value="Asian">Asian</option>
+          <option value="American">American</option>
+          <option value="British">British</option>
+          <option value="Cajun">Cajun</option>
+          <option value="Caribbean">Caribbean</option>
+          <option value="Chinese">Chinese</option>
+          <option value="Eastern European">Eastern European</option>
+          <option value="European">European</option>
+          <option value="French">French</option>
+          <option value="German">German</option>
+          <option value="Greek">Greek</option>
+          <option value="Indian">Indian</option>
+          <option value="Irish">Irish</option>
+          <option value="Italian">Italian</option>
+          <option value="Japanese">Japanese</option>
+          <option value="Jewish">Jewish</option>
+          <option value="Korean">Korean</option>
+          <option value="Latin American">Latin American</option>
+          <option value="Mediterranean">Mediterranean</option>
+          <option value="Mexican">Mexican</option>
+          <option value="Middle Eastern">Middle Eastern</option>
+          <option value="Nordic">Nordic</option>
+          <option value="Southern">Southern</option>
+          <option value="Spanish">Spanish</option>
+          <option value="Thai">Thai</option>
+          <option value="Vietnamese">Vietnamese</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+
+
+      <div class="container row row-cols-1 row-cols-md-2 row-cols-lg-4 mb-3 text-center">
+        <!-- we check user search result and if there's no result, we display error message  -->
+        <% if (searchResult.length === 0) { %>
+          <div class="noResult">
+           <p class="fw-semibold fs-3"><%= noResult %></p>
+            <img src="<%= errorImg %>"></img>
+          </div>
+          <% } else { %>
+        <!-- for every item in the resulting array, we display recipe image with title -->
+        <% for (let i = 0; i < searchResult.length; i++) { %>         
+           <div class="col">
+              <form action="/recipe" method="post">              
+                <div class="card mb-4 rounded-3 shadow-sm">
+                  <button type="submit" class="btn" value="<%= searchResult[i].id %>" name="id">
+                  <div class="card-header">
+                    <img src="<%= searchResult[i].image %>" alt="">
+                  </div>
+                  <div class="card-body">
+                    <p class="text-center text-wrap" name="recipeName"><%= searchResult[i].title %></p>
+                  </div>
+                </button>
+                </div>
+              </form>
+           </div>
+        <% }}; %>
+      </div>
+<%- include("partials/footer.ejs") %>

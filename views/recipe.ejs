@@ -1,0 +1,21 @@
+<%- include("partials/header.ejs") %>
+<div class="container">
+    <div class="text-center my-4">
+        <h2><%= searchResult.title %></h2>
+    </div>
+    <div class="w-50">
+        <img src="<%= searchResult.image %>" alt="">
+    </div>
+    <div class="my-4 fontSize fw-semibold">
+        <ul>
+            <% for (let i = 0; i < searchResult.extendedIngredients.length; i++) { %>
+               <li><%= searchResult.extendedIngredients[i].original %></li>
+           <% } %>
+        </ul>
+    </div>
+    <div class="fontSize">
+        <p> <%= searchResult.instructions %> </p>
+    </div>
+</div>
+<%- include("partials/footer.ejs") %>
+
